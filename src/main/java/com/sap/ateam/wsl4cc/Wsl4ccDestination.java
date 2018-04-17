@@ -20,21 +20,24 @@ public class Wsl4ccDestination {
 		}
 		return null;
 	}
-	
+
 	public static JCoFunction getFunction (JCoDestination destination, String functionName) {
         JCoRepository repo = null;
         JCoFunction func = null;
-        
+
         try {
         	if (destination != null)
         		repo = destination.getRepository();
-        	
-        	if (repo != null)
-        		func = repo.getFunction(functionName);
+
+        	if (repo != null) {
+				repo.clear();
+				func = repo.getFunction(functionName);
+			}
+
 		} catch (JCoException jcoe) {
 			logger.error("Exception occured while getting function " + functionName, jcoe);
 		}
-        
+
         return func;
 	}
 
